@@ -15,8 +15,6 @@ let array = [1, 2, 3, 4, 5];
 // printSpreadParam(array);
 // printSpreadParam(jsonObj);
 
-equivalentSpreadSyntax();
-
 
 /* ========================= REST SYNTAX ====================================================================== */
 // Purpose: To gather the multiple remaining parameters into an array.
@@ -107,3 +105,5 @@ function equivalentSpreadSyntax() {
   var { name, age } = json;
   console.log(`Check equivalent spread syntax when assignment #1\n name:${name}, age:${age}`);
 }
+
+equivalentSpreadSyntax();
