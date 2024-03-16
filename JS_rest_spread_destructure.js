@@ -18,7 +18,8 @@ let array = [1, 2, 3, 4, 5];
 // 2 - ... as Spread operator
 // spreadIterable(array);
 // spreadIterable("Hello");
-// spreadIterable(jsonObj); // JSON is not built-in iterable, cannot use spread
+// spreadIterable(jsonObj); // NOTE: JSON is not built-in iterable, cannot use spread the same way as iterable objects
+spreadJSON(jsonObj); // spread syntax is diff from JSON
 
 // 3 - Destructure
 // destructure(array);
@@ -29,7 +30,7 @@ let array = [1, 2, 3, 4, 5];
 // printSpreadParam(jsonObj);
 
 // Extra
-equivalentSpreadSyntax();
+// equivalentSpreadSyntax();
 
 /* ========================= 1-  ... AS REST OPERATOR ====================================================================== */
 // Purpose: To gather the multiple remaining parameters into an array.
@@ -58,6 +59,25 @@ function spreadIterable(iterable) {
     return item1 + "!" + item2 + "!";
   }
 }
+
+// ... does not work on object directly -> for iterable only
+// spreading JSON requires a diff syntax -> {... jsonName}
+function spreadJSON(json) {
+  console.log(`~~~~~~~~~~~~~~~~Enter spreadJSON~~~~~~~~~~~~~~~~`);
+  console.log({ ...json });
+  console.log(modifySpreadedElement_1({ ...json }));
+  console.log(modifySpreadedElement_2({ ...json }));
+  // console.log(...json); // Error if attempt to spread JSON like iterable objects without {}
+
+  function modifySpreadedElement_1(item) { // function only receive 1 element, the rest is ignored
+    return JSON.stringify(item);
+  }
+
+  function modifySpreadedElement_2(item1, item2) { // function only receive 1 element, the rest is ignored
+    return JSON.stringify(item1) + JSON.stringify(item2);
+  }
+}
+
 /* ========================= 3 - DESTRUCTURE =============================================================== */
 // Purpose: 
 // For Array - Extract element based on sequential order
@@ -121,7 +141,7 @@ function printSpreadParam(spreadParam) {
     console.log(`Extracted: ${JSON.stringify(name)} \n Extracted: ${JSON.stringify(age)} \n Extracted: ${JSON.stringify(third)} \n Extracted: ${JSON.stringify(remaining)} `);
     // concat
     let concatObj = { ...remaining, ...remaining };
-    console.log(`concatObj: ${JSON.stringify(concatObj)}, \nconcatObj.country: ${concatObj.country} `); // Note: concatObj === remaining, since JSON object cannot have duplicate key (override value) 
+    console.log(`concatObj: ${JSON.stringify(concatObj)}, \nconcatObj.country: ${concatObj.country} `); // Note: concatObj === remaining, since JSON object cannot have duplicate key (override with latest value) 
     let concatObj2 = { ...remaining, key_X: "x", key_Y: "y" };
     console.log(`concatObj2: ${JSON.stringify(concatObj2)}, \nconcatObj2.country: ${concatObj2.country} `);
   }
